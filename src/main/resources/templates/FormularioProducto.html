@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/FormularioProducto.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h2 class="titulo">Muebleria</h2>
+        <nav class="navigation">
+          	 	<a  href="/cargarIndex" >Inicio</a>
+      		  	<a  href="/cargarProductos" >Producto</a>
+        		<a  href="/cargarMantenedores" th:if="${u.tipo !=2}" >  Mantenedores</a>     
+        		<a  href="/cargarConsulta" >Consultas</a>     
+        		<a  href="/cargarReportes" th:if="${u.tipo !=2}">Reportes</a>
+            <button class="btnCompra"  onclick="redirectCarrito()"><ion-icon  class="icon"  name="cart-outline" ></ion-icon></button>
+        </nav>
+        
+      </header>
+    <div >
+		
+		
+		<section style="width: 110%; background-color: #F9F7EC;">
+				<fieldset >
+					<legend style="background-color: silver;">Formulario de
+						compras</legend>
+					<table>
+						<tr>
+							<td >
+								<table>
+									<tr>
+										<td><img alt="" th:src="@{'../img/imgProd/' + ${producto.cod_prod} + '.jpeg'}" width="350px" height="300px"></td>
+									</tr>
+								</table>
+							</td>
+
+							<td style="padding-left: 0.5rem;">
+								<form action="/agregarCarrito" method="post" th:object="${producto}">
+									<table>
+										<tr >
+											<td><label>Cod producto:</label></td>
+											<td><label> <strong th:text="${producto.cod_prod}" ></strong> </label> <a><img
+													 alt=""> </a></td>
+										</tr>
+										<tr >
+											<td><label>Cod proveedor :</label></td>
+											<td><label th:text="${producto.cod_provee}"></label></td>
+										</tr>
+										<tr >
+											<td><label >Descripción :</label></td>
+											<td><label th:text="${producto.descripcion}"></label></td>
+										</tr>
+										<tr >
+											<td><label >Precio :</label></td>
+											<td><label th:text="${'S/' + (producto.precio)}"></label></td>
+										</tr>
+										<tr >
+											<td><label>Cantidad a comprar:</label></td>
+											<td><input type="number" value="1" name="cantidad"
+												min="1" max=""></td>
+										</tr>
+
+										<tr >
+											<td>
+												<button  class="btn btn-primary">
+													Agregar compra <span
+														class="glyphicon glyphicon-shopping-cart"></span>
+												</button>
+										</tr>
+
+									</table>
+								</form>
+							</td>
+
+						</tr>
+					</table>
+
+
+
+				</fieldset>
+			</section>
+			
+			
+		
+	</div>
+</body>
+</html>
+
+<script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script >
+	function redirectCarrito() {
+    window.location.href = "/cargarCarritoCompras";
+	}
+</script>

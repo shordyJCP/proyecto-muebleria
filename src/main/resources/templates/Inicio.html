@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/inicio.css">
+	<title>Document</title>
+
+</head>
+<body>
+        <header>
+            <h2 class="titulo">Muebleria</h2>
+            <nav class="navigation" >
+                <a  href="/cargarIndex" >Inicio</a>
+                 <a  href="/cargarProductos" >Producto</a>
+      			  <a  href="/cargarMantenedores" th:if="${u.tipo !=2}" >  Mantenedores</a>     
+      			  <a  href="/cargarConsulta" >Consultas</a>      
+       			 <a  href="/cargarReportes" th:if="${u.tipo !=2}" >Reportes</a>
+                <button class="btnCompra"  onclick="redirectCarrito()"><ion-icon   class="icon"  name="cart-outline" ></ion-icon></button>
+              
+            </nav>
+        </header>
+
+        <section class="home">
+            <div class="home-text">
+                <h1>MUEBLERIA S.A.</h1>
+                <P>Bienvenidos aqui encontrarás la solución perfecta para amueblar tu hogar con estilo y comodidad</P>
+                <br>
+                <p>Explore por el sitio web y disfrute de su estadia</p>
+            </div>
+
+        </section>
+        
+</body>
+</html>
+
+<script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "35c98d1d-2f39-4261-95df-80fd7b061d87", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "4627bc2c-d4c6-410b-b345-bdb11e3d405f", // The ID of your service instance.
+    onLoad: function(instance) { instance.render(); }
+  };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+<script >
+	function redirectCarrito() {
+    window.location.href = "/cargarCarritoCompras";
+	}
+</script>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="/css/Producto.css" />
+    <title>Document</title>
+</head>
+
+<body>
+	 <header>
+    <h2 class="titulo">Muebleria</h2>
+    <nav class="navigation">
+        <a  href="/cargarIndex" >Inicio</a>
+        <a  href="/cargarProductos" >Producto</a>
+        <a  href="/cargarMantenedores" th:if="${u.tipo !=2}">  Mantenedores</a>     
+        <a  href="/cargarConsulta" >Consultas</a>     
+        <a  href="/cargarReportes" th:if="${u.tipo !=2}" >Reportes</a>
+        <button class="btnCompra" onclick="redirectCarrito()"><ion-icon  class="icon"  name="cart-outline" ></ion-icon></button>
+    </nav>
+    
+  </header>
+ 
+  <div>
+		 <main>
+			<section >
+				<div class="container py-5" >
+					<div class="row">
+						<div   class="col-sm-4" th:each="p : ${lstProducto}" >
+							<div class="card"  >
+								<img class="card-img-top" th:src="@{'../img/imgProd/' + ${p.cod_prod} + '.jpeg'}" alt="Card image cap" width="250px" height="250px">
+								<div class="card-body">
+									<h5  class="card-title" th:text="${p.descripcion}"></h5>
+									<p class="card-text" th:text="${'S/' + (p.precio)}">
+										
+									</p>
+									<form action="/agregarProducto" method="post" >
+										<input type="hidden" name="cod_prod" th:value="${p.cod_prod}"  >
+										<button type="submit" name="btnAccion" value="addProductos"
+											class="btn btn-outline-primary" >Agregar</button>
+									</form>
+								</div>
+							</div>
+						</div>	  
+         	        </div>
+                </div>
+			</section>
+		</main>
+	</div>
+<body>
+</html>
+<script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script >
+	function redirectCarrito() {
+    window.location.href = "/cargarCarritoCompras";
+	}
+</script>
+

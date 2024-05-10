@@ -1,0 +1,87 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="stylesheet" href="css/CarritoCompras.css">
+	    <title>Document</title>
+	</head>
+	<body>
+	    
+	        <header>
+	          <h2 class="titulo">Muebleria</h2>
+	         <nav class="navigation">
+	        	    <a  href="/cargarIndex" >Inicio</a>
+	     		   <a  href="/cargarProductos" >Producto</a>
+	      		  <a  href="/cargarMantenedores" th:if="${u.tipo !=2}">  Mantenedores</a>     
+	       		 <a  href="/cargarConsulta" >Consultas</a>     
+	      		  <a  href="/cargarReportes" th:if="${u.tipo !=2}" >Reportes</a>
+	            <button class="btnCompra" onclick="redirectCarrito()"><ion-icon  class="icon"  name="cart-outline" ></ion-icon></button>
+	          </nav>
+	        
+	        </header>
+	        
+	                <center style="width: 40rem; margin-right: -47rem; margin-left: 20rem;">
+	                  <h1  style="margin-top: -17rem; height: 1rem; color: #ffffff; font-size: 2rem;">
+	                      <b >Carrito de compras</b>
+	                  </h1>
+	                </center>
+	    <div style="display: flex; font-family: 'Open Sans';">
+	            <div style="width: 60.188rem; height:auto; float:left;  margin-top: 3%; background-color: #F9F7EC;  margin-right: 10rem; margin-left: -20rem;">
+	                <table class="table table-striped" id="myTable" style="text-align: left;">
+	                    <thead>
+	                      <tr>
+	                          <th scope="col">Código</th>
+	                          <th scope="col">Producto</th>
+	                          <th scope="col">cantidad</th>
+	                          <th scope="col">Precio</th>
+	                          <th scope="col">subtotal</th>
+	                          <th scope="col"></th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="detalle : ${carro}">
+	                            <th scope="row"  th:text="${detalle.cod_prod}" ></th>
+	                            <td  th:text="${detalle.nomProd}"></td>
+	                            <td th:text="${detalle.cantidad}"></td>
+	                            <td th:text="${detalle.preciovta}"></td>
+	                            <td th:text="${detalle.importe}"></td>
+	                              
+	                            <td> 
+	                                <form action="/eliminarCompra" method="post">
+	                                    <input type="hidden" name="codigo" th:value="${detalle.cod_prod}">
+	                                    <button type="submit" name="opcion" value="eliminar"
+	                                        class="btn-trash"><ion-icon class="trash-outline" name="trash"></ion-icon> </button>
+	                                </form>
+	                            </td>
+	                        </tr>
+	                    </tbody>	
+	                </table>
+	            </div>
+	                <div style="width: 30%; height: 250px; float: left; border: 1px solid; background-color: #F9F7EC; margin-top: 3% ; text-align: left;" >
+	                    <h1>Resumen de pedido</h1>
+	                    <hr >
+	                    <label  style="margin-left: 50px" th:text="${'Total artículos:' + (cantArticulos)}" >Total artículos </label>
+	                    <label   style="margin-left: 30px" th:text="${'Sub total S/' +(subTotalVenta)}">Sub total S/ </label>
+	                    <hr>
+	                    <form action="/finalizarCompra" method="post" style="margin-top: 10%; margin-left: 40px" >
+	                        <button     name="opcion" value="finalizar" class="btn btn-primary">Procesar compra<span class="glyphicon glyphicon-ok"></span>
+	                        </button>
+	                      
+	                    
+	                    </form>
+	                </div>     
+	               
+	    </div>
+	    
+	</body>
+	</html>
+	<script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script >
+		function redirectCarrito() {
+	    window.location.href = "/cargarCarritoCompras";
+		}
+	</script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+

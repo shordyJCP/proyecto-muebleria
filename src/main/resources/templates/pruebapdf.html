@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="/css/Producto.css" />
+    <title>Document</title>
+</head>
+
+<body>
+	
+        <button class="" onclick="openPdf()"><ion-icon  class="icon"  name="cart-outline" ></ion-icon></button>
+  <button onclick="openPdf()">Abrir PDF</button>
+    <a href="/src/main/resources/reporte/reporte_proveedor.pdf" target="_blank">Abrir PDF</a>
+ 
+<body>
+</html>
+<script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script>
+function openPdf() {
+    // Ruta para abrir el archivo PDF a través del controlador
+    var pdfFilePath = "/abrir-pdf";
+    
+    // Abre el archivo PDF en una nueva ventana del navegador
+    window.open(pdfFilePath, "_blank");
+}
+</script>
+
