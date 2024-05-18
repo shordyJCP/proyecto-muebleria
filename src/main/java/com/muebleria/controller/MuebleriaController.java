@@ -643,7 +643,7 @@ public class MuebleriaController {
 					model.addAttribute("clase", "alert alert-danger");
 				}
 				model.addAttribute("lstTipoUsuario", repoTipoUsua.findAll());
-				return "Login";
+				return "redirect:/";
 			}
 			//cerrar session
 			
