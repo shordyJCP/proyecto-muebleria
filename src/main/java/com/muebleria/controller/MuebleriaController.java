@@ -220,6 +220,23 @@ public class MuebleriaController {
 		        return "redirect:/";
 		    }
 		}
+		
+		@GetMapping("/cargarEditarPerfil")
+		public String abrirPagEditarUsuario( Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
+			if(usuario != null) {
+			
+			
+				model.addAttribute("u", usuario);
+				
+				
+				return "EditarUsuario";
+			}
+			else {
+				return "redirect:/";
+			}
+		}
+			
 		@GetMapping("/cargarMantenedorCliente")
 		public String abrirpagMantenedorCliente(Model model) {
 			
@@ -645,6 +662,29 @@ public class MuebleriaController {
 				model.addAttribute("lstTipoUsuario", repoTipoUsua.findAll());
 				return "redirect:/";
 			}
+			
+			@PostMapping("/usuario/actualizar")
+			public String actualizarUsuario(@RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestParam("usuario") String usuario, @RequestParam("clave") String clave, @RequestParam("fnacim") String fnacim, HttpSession session, Model model) {
+			    // Obtener el usuario de la sesión
+			    Usuario usuarioSession = (Usuario) session.getAttribute("u");
+			    if (usuarioSession != null) {
+			        // Actualizar los campos del usuario con los datos del formulario
+			        usuarioSession.setNombre(nombre);
+			        usuarioSession.setApellido(apellido);
+			        usuarioSession.setUsuario(usuario);
+			        usuarioSession.setClave(clave);
+			        usuarioSession.setFnacim(fnacim);
+			        // Guardar el usuario actualizado en la base de datos
+			        try {
+			            repoUsua.save(usuarioSession);
+			            model.addAttribute("mensaje", "Usuario actualizado correctamente");
+			        } catch (Exception e) {
+			            model.addAttribute("mensaje", "Error al actualizar el usuario");
+			        }
+			    }
+			    return "redirect:/cargarEditarPerfil";
+			}
+
 			//cerrar session
 			
 			@GetMapping("/CerrarSesion")

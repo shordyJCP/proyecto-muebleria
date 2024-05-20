@@ -10,10 +10,11 @@
     <header>
         <h2 class="titulo">Muebleria</h2>
         <nav class="navigation">
-            <a  href="../Login-Registro/Inicio.html"  >Inicio</a>
-            <a  href="../Login-Registro/Mantenedores.html" >Mantenedores</a>     
-            <a  href="../Login-Registro/Consultas.html" >Consultas</a>      
-            <a  href="../Login-Registro/Reporte.html" >Reportes</a>
+            <a  href="/cargarIndex"  >Inicio</a>
+             <a  href="/cargarProductos" >Producto</a>
+            <a  href="/cargarMantenedores" >Mantenedores</a>     
+            <a  href="/cargarConsulta" >Consultas</a>      
+            <a  href="/cargarReportes" >Reportes</a>
             <div class="dropdown">
                 <button class="dropbtn"> <ion-icon class="icon" name="person-outline"></ion-icon> </button>
                 <div class="dropdown-content">
@@ -22,52 +23,44 @@
                     <a href="#">Cerrar sesión</a>
                 </div>
             </div>
-            <button class="btnCompra"  href="../Login-Registro/Carrito.html"><ion-icon   class="icon"  name="cart-outline" ></ion-icon></button>
+            <button class="btnCompra"  onclick="redirectCarrito()"><ion-icon   class="icon"  name="cart-outline" ></ion-icon></button>
         </nav>
     </header>
     <div class="contenedor">
         <div class="form-box update">
             <h2>EDITAR PERFIL</h2>
-            <form>
+            <form action="/usuario/actualizar"    method="post">
                 <div class="input-box">
                     
-                    <input class="input-text" id="nombreInput" type="text" required  placeholder="Nombre" readonly>
-                    <label></label>
+                    <input class="input-text" id="nombreInput" type="text" name="nombre" th:value="${u.nombre}"  readonly>
                     <button class="icon"  type="button"  onclick="toggleEdit('nombreInput')"> <ion-icon  name="pencil-outline" ></ion-icon> </button>
                 </div>
                 <div class="input-box">
                     
-                    <input class="input-text" id="apellidoInput" type="text" required  placeholder="Apellido" readonly>
-                    <label></label>
+                    <input class="input-text" id="apellidoInput" type="text" name="apellido" th:value="${u.apellido}"  readonly>
+                    
                     <button class="icon"  type="button"  onclick="toggleEdit('apellidoInput')"> <ion-icon  name="pencil-outline" ></ion-icon> </button>
                 </div>
                 <div class="input-box">
                     
-                    <input  class="input-text" id="usuarioInput"type="text" required  placeholder="Usuario" readonly>
+                    <input  class="input-text" id="usuarioInput"type="text" name="usuario" th:value="${u.usuario}" readonly>
                     <label></label>
                     <button class="icon"  type="button"  onclick="toggleEdit('usuarioInput')"> <ion-icon  name="pencil-outline" ></ion-icon> </button>
                 </div>
                 <div class="input-box">
                 
-                    <input  class="input-text" id="contraseñaInput" type="text" required placeholder="Contraseña" readonly>
-                    <label></label>
+                    <input  class="input-text" id="contraseñaInput" type="text" name="clave" th:value="${u.clave}"  readonly>
+                    
                     <button class="icon"  type="button"  onclick="toggleEdit('contraseñaInput')"> <ion-icon  name="pencil-outline" ></ion-icon> </button>
                 </div>
                 <div class="input-box">
                     
-                    <input  class="input-text" id="dateInput" type="date" readonly >
+                    <input  class="input-text" id="dateInput" type="date"  name="fnacim" th:value ="${u.fnacim}" readonly >
                     <button class="icon"  type="button"  onclick="toggleEdit('dateInput')"> <ion-icon  name="pencil-outline" ></ion-icon> </button>
                     <label></label>
                     
                 </div>
-                 <div class="input-box">
-                    <span class="icon" ><ion-icon name="caret-down-outline"></ion-icon> </span>
-                        <select id="inputProv" class="form-control" >
-                            <option value="0" >Seleccione...</option>
-                            <option ></option>
-                        </select>
-                        <label  ></label>     
-                </div>
+               
 
                 <button type="submit"  class="btn">Actualizar</button>
             
@@ -79,3 +72,8 @@
 <script  type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="js/EditarUsuario.js"></script>
+<script >
+	function redirectCarrito() {
+    window.location.href = "/cargarCarritoCompras";
+	}
+</script>
