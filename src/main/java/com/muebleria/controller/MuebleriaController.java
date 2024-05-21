@@ -117,7 +117,7 @@ public class MuebleriaController {
 
 		        model.addAttribute("cliente", new Clientes());
 		        model.addAttribute("usuario", nombreUsuario);
-
+		        model.addAttribute("u", usuario); 
 		        return "Mantenedores";
 		    } else {
 		        
@@ -133,7 +133,7 @@ public class MuebleriaController {
 
 		        model.addAttribute("cliente", new Clientes());
 		        model.addAttribute("usuario", nombreUsuario);
-
+		        model.addAttribute("u", usuario); 
 		        return "Reporte";
 		    } else {
 		        
@@ -163,10 +163,11 @@ public class MuebleriaController {
 			
 		}
 		@GetMapping("/cargarReporteVenta")
-		public String abrirReporteVenta(Model model) {
-			
+		public String abrirReporteVenta(Model model,  HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			model.addAttribute("lstVenta", repoDetboleta.findAll());
 			model.addAttribute("venta", new Detalleboleta());
+			model.addAttribute("u", usuario); 
 			return "ReporteVenta";
 			
 			
@@ -176,26 +177,31 @@ public class MuebleriaController {
 		
 		
 		@GetMapping("/cargarReporteClientes")
-		public String abrirReporteCliente(Model model) {
+		public String abrirReporteCliente(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			List<Clientes> clientes = repoCli.findAll();
 			model.addAttribute("lstCliente", repoCli.findAll());
-			
+			model.addAttribute("u", usuario); 
 					model.addAttribute("cliente", new Clientes());
 			return "ReporteCliente";
 		}
 		@GetMapping("/cargarReporteProveedores")
-		public String abrirReporteProveedor(Model model) {
+		public String abrirReporteProveedor(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			List<Proveedor> proveedor = repoProv.findAll();
 			model.addAttribute("lstProveedores", repoProv.findAll());
 					model.addAttribute("proveedores", new Proveedor());
+					model.addAttribute("u", usuario); 
 			return "ReporteProveedor";
 		}
 		@GetMapping("/cargarReporteEmpleado")
-		public String abrirReporteEmpleado(Model model) {
+		public String abrirReporteEmpleado(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			List<Empleados> empleado = repoEmp.findAll();
 			model.addAttribute("lstEmpleado", repoEmp.findAll());
 			model.addAttribute("empleado", new Empleados());
 			model.addAttribute("lstPuesto", repoPues.findAll());
+			model.addAttribute("u", usuario); 
 			return "ReporteEmpleado";
 		}
 		
@@ -238,16 +244,18 @@ public class MuebleriaController {
 		}
 			
 		@GetMapping("/cargarMantenedorCliente")
-		public String abrirpagMantenedorCliente(Model model) {
-			
+		public String abrirpagMantenedorCliente(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 					model.addAttribute("cliente", new Clientes());
+					model.addAttribute("u", usuario); 
 			return "MantenedorCliente";
 			
 		}
 		@GetMapping("/cargarMantenedorProveedores")
-		public String abrirpagMantenedorProveedores(Model model) {
-			
+		public String abrirpagMantenedorProveedores(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 					model.addAttribute("proveedores", new Proveedor());
+					model.addAttribute("u", usuario); 
 			return "MantenedorProveedores";
 		}
 		@GetMapping("/cargarMantenedorProductos")
@@ -256,12 +264,13 @@ public class MuebleriaController {
 			  model.addAttribute("lstTipo", repoTip.findAll());
 				model.addAttribute("lstProve", repoProv.findAll());
 				model.addAttribute("producto", new Productos());
+			
 					
 		    if (usuario != null) {
 			       String nombreUsuario = usuario.getUsuario();
 			        model.addAttribute("cliente", new Clientes());
 			        model.addAttribute("usuario", nombreUsuario);
-			      
+			        model.addAttribute("u", usuario); 
 			        return "MantenedorProducto.html";
 			    } else {
 			        
@@ -270,9 +279,10 @@ public class MuebleriaController {
 		   
 		}
 		@GetMapping("/cargarMantenedorEmpleado")
-		public String abrirpagMantenedorEmpleado(Model model) {
+		public String abrirpagMantenedorEmpleado(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			model.addAttribute("lstPuesto", repoPues.findAll());
-			
+			model.addAttribute("u", usuario); 
 					model.addAttribute("empleado", new Empleados());
 			return "MantenedorEmpleados";
 		}
@@ -299,18 +309,20 @@ public class MuebleriaController {
 
 		
 		@GetMapping("/cargarConsultaCliente")
-		public String abrirpagConsultaCliente(Model model) {
+		public String abrirpagConsultaCliente(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			 List<Clientes> clientes = repoCli.findAll();
 			model.addAttribute("lstCliente", repoCli.findAll());
-			
+			 model.addAttribute("u", usuario); 
 					model.addAttribute("cliente", new Clientes());
 			return "ConsultaCliente";
 		}
 		@GetMapping("/cargarConsultaProveedores")
-		public String abrirpagConsultaProveedor(Model model) {
+		public String abrirpagConsultaProveedor(Model model, HttpSession session) {
+			Usuario usuario = (Usuario) session.getAttribute("u");
 			List<Proveedor> proveedor = repoProv.findAll();
 			model.addAttribute("lstProveedores", repoProv.findAll());
-		
+			 model.addAttribute("u", usuario); 
 					model.addAttribute("proveedores", new Proveedor());
 			return "ConsultaProveedores";
 		}
@@ -336,7 +348,9 @@ public class MuebleriaController {
 		}
 
 	@GetMapping("/cargarConsultaEmpleado")
-		public String abrirpagConsultaEmpleado(Model model) {
+		public String abrirpagConsultaEmpleado(Model model, HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("u");
+		 model.addAttribute("u", usuario); 
 			List<Empleados> empleado = repoEmp.findAll();
 			model.addAttribute("lstEmpleado", repoEmp.findAll());
 			model.addAttribute("empleado", new Empleados());
