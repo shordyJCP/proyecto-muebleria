@@ -370,18 +370,20 @@ public class MuebleriaController {
 					repoCli.save(cliente); //El metodo save sirve para agregar o actualizar
 					model.addAttribute("mensaje", "Proceso OK");
 					model.addAttribute("clase", "alert alert-success");
-					return "MantenedorCliente";
+					return "redirect:/cargarMantenedorCliente";
 				} catch (Exception e) {
 					model.addAttribute("mensaje", "Error al Procesar");
 					model.addAttribute("clase", "alert alert-danger");
-					return "MantenedorCliente";
+					return "redirect:/cargarMantenedorCliente";
 				}
 			}
 			
 			@GetMapping("/cargar/actualizar/{cod_cliente}")
-		    public String abrirPagCli(Model model, @PathVariable("cod_cliente") int cod_cliente) {
+		    public String abrirPagCli(Model model, @PathVariable("cod_cliente") int cod_cliente, HttpSession session) {
+				Usuario usuario = (Usuario) session.getAttribute("u");
 		        Clientes cliente = repoCli.findById(cod_cliente).orElse(null);
 		        model.addAttribute("cliente", cliente);
+		        model.addAttribute("u", usuario); 
 		        return "MantenedorCliente";
 		    }
 			
@@ -423,18 +425,20 @@ public class MuebleriaController {
 					repoProv.save(proveedores); //El metodo save sirve para agregar o actualizar
 					model.addAttribute("mensaje", "Proceso OK");
 					model.addAttribute("clase", "alert alert-success");
-					return "MantenedorProveedores";
+					return "redirect:/cargarMantenedorProveedores";
 				} catch (Exception e) {
 					model.addAttribute("mensaje", "Error al Procesar");
 					model.addAttribute("clase", "alert alert-danger");
-					return "MantenedorProveedores";
+					return "redirect:/cargarMantenedorProveedores";
 				}
 			}
 			
 			@GetMapping("/cargar/actualizarProv/{cod_provee}")
-		    public String abrirPagProv(Model model, @PathVariable("cod_provee") int cod_provee) {
+		    public String abrirPagProv(Model model, @PathVariable("cod_provee") int cod_provee, HttpSession session) {
+				Usuario usuario = (Usuario) session.getAttribute("u");
 		        Proveedor proveedores = repoProv.findById(cod_provee).orElse(null);
 		        model.addAttribute("proveedores", proveedores);
+		        model.addAttribute("u", usuario); 
 		        return "MantenedorProveedores";
 		    }
 			
@@ -476,7 +480,7 @@ public class MuebleriaController {
 						repoEmp.save(empleado); //El metodo save sirve para agregar o actualizar
 						model.addAttribute("mensaje", "Proceso OK");
 						model.addAttribute("clase", "alert alert-success");
-						return "MantenedorEmpleados";
+						return "redirect:/cargarMantenedorEmpleado";
 					} catch (Exception e) {
 						model.addAttribute("mensaje", "Error al Procesar");
 						model.addAttribute("clase", "alert alert-danger");
@@ -506,10 +510,12 @@ public class MuebleriaController {
 			}
 			
 			@GetMapping("/cargar/actualizarEmp/{codigo}")
-		    public String abrirPagEmp(Model model, @PathVariable("codigo") int codigo) {
+		    public String abrirPagEmp(Model model, @PathVariable("codigo") int codigo, HttpSession session) {
+				Usuario usuario = (Usuario) session.getAttribute("u");
 		        Empleados empleado = repoEmp.findById(codigo).orElse(null);
 		        model.addAttribute("empleado", empleado);
 		        model.addAttribute("lstPuesto", repoPues.findAll());
+		        model.addAttribute("u", usuario); 
 				return "MantenedorEmpleados";
 		    }
 			@GetMapping("/empleado/eliminar/{codigo}")
@@ -552,7 +558,7 @@ public class MuebleriaController {
 						repoProd.save(productos); //El metodo save sirve para agregar o actualizar
 						model.addAttribute("mensaje", "Proceso OK");
 						model.addAttribute("clase", "alert alert-success");
-						return "MantenedorProducto";
+						return "redirect:/cargarMantenedorProductos";
 					} catch (Exception e) {
 						model.addAttribute("mensaje", "Error al Procesar");
 						model.addAttribute("clase", "alert alert-danger");
@@ -581,11 +587,13 @@ public class MuebleriaController {
 			
 			}
 			@GetMapping("/cargar/actualizarProd/{cod_prod}")
-		    public String abrirPagProd(Model model, @PathVariable("cod_prod") int cod_prod) {
+		    public String abrirPagProd(Model model, @PathVariable("cod_prod") int cod_prod, HttpSession session) {
+				Usuario usuario = (Usuario) session.getAttribute("u");
 		        Productos producto = repoProd.findById(cod_prod).orElse(null);
 		        model.addAttribute("producto", producto);
 		        model.addAttribute("lstTipo", repoTip.findAll());
 				model.addAttribute("lstProve", repoProv.findAll());
+				model.addAttribute("u", usuario); 
 		        return "MantenedorProducto";
 		    }
 			
